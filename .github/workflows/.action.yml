@@ -1,43 +1,29 @@
-name: azure
-on: [push]
-  # push:
-  #   branches:
-  #     - main
-  # pull_request:
-  #   branches:
-  #     - main
+name: cd
+
+on: [push, pull_request]
+
 jobs:
-  deploy:
+  cd:
     runs-on: ${{ matrix.os }}
+
     strategy:
       matrix:
-        os: [ ubuntu-latest ]
-        node: [ 14 ]
-    steps:
-      - uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node }}
+        os: [ubuntu-latest]
+        node: [14]
 
+    steps:
       - name: Checkout
         uses: actions/checkout@master
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - uses: actions/cache@v2
-        id: yarn-cache
+      - name: Setup node env
+        uses: actions/setup-node@v2.1.2
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-azure
+          node-version: ${{ matrix.node }}
 
-      - name: Install Dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
+      - name: Install dependencies
         run: yarn
 
-      - name: Build
+      - name: Generate
         run: npm run build
 
       - name: Deploy
