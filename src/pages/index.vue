@@ -10,7 +10,7 @@
   </div>
 </template>
 
-<script setup lang="tsx">
+<script setup lang="ts">
 import TheHeader from '@/components/TheHeader'
 import MainArea from '@/components/MainArea'
 import PreviewArea from '@/components/PreviewArea'
