@@ -23,11 +23,8 @@ jobs:
       - name: Install Dependencies
       - run: yarn
 
-      - name: Build
       # - run: npm ci
       # - run: npm test
-      # - run: npm i
-      # - run: npm install @nuxt/bridge
       - run: npm run build
 
       - name: deploy
