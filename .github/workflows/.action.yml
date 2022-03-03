@@ -25,7 +25,7 @@ jobs:
 
       - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn
+        run: npm
 
       - name: build
       # - run: npm ci
@@ -42,7 +42,6 @@ jobs:
       - name: Run a multi-line script
         run: |
           git checkout -b gh-pages origin/gh-pages
-
 
       - name: Run a multi-line script
         run: |
