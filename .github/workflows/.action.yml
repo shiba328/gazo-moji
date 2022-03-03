@@ -1,7 +1,7 @@
 name: Release
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -20,10 +20,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
+      - name: Install Dependencies
+      - run: yarn
+
+      - name: Build
       # - run: npm ci
       # - run: npm test
-      - run: npm i
-      - run: npm install @nuxt/bridge
+      # - run: npm i
+      # - run: npm install @nuxt/bridge
       - run: npm run build
 
       - name: deploy
