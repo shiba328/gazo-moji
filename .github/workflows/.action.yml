@@ -1,5 +1,8 @@
 name: Release
-on: [push]
+on: 
+  pull_request:
+    branches:
+      - main
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
@@ -38,10 +41,9 @@ jobs:
 
       - name: Run a multi-line script
         run: |
-          git fetch
-          git checkout gh-pages
-          echo "{\"lastUpdate\": $(date "+%s")}" > release-date.json
+          git checkout -b gh-pages --track origin/gh-pages
           git config user.name github-actions
           git config user.email github-actions@github.com
+          echo "{\"lastUpdate\": $(date "+%s")}" > release-date.json
           npm run release "-m \"changelog [skip ci]\""
           git push --follow-tags origin main
