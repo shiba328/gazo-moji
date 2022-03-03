@@ -1,7 +1,7 @@
 name: Release
 on: [push]
 jobs:
-  deploy:
+  Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
