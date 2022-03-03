@@ -41,8 +41,8 @@ jobs:
 
       - name: Run a multi-line script
         run: |
-          git fetch origin
-          git checkout -b gh-pages --track origin/gh-pages
+          git fetch
+          git checkout gh-pages
           git config user.name github-actions
           git config user.email github-actions@github.com
           echo "{\"lastUpdate\": $(date "+%s")}" > release-date.json
