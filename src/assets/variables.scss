@@ -1,0 +1,18 @@
+$is-dark: false;
+$shadowColor: rgba(#3f4b90, 25%);
+$textColor: #3f4b90;
+$bgColor: #fff;
+
+$borderRadius: 6px;
+
+$barTextColor: $textColor;
+$barBgColor: #fefefe;
+$barShadowColor: $shadowColor;
+$barHoverColor: darken($barBgColor, 5%);
+$checkedColor: $barTextColor;
+// lighten($barBgColor, 15%);
+
+$btnBgVColor: $barTextColor;
+$btnHoverColor: lighten($barTextColor, 35%);
+$borderColor: lighten($barTextColor, 35%);
+
