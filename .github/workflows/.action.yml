@@ -33,5 +33,5 @@ jobs:
 
       - name: Run a multi-line script
         run: |
-          yarn release "-m \"changelog [skip ci]\""
+          npm run release "-m \"changelog [skip ci]\""
           git push --follow-tags origin master
