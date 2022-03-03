@@ -53,7 +53,6 @@ withDefaults(defineProps<{
 })
 const isShow = ref(false)
 const hover = (flg) => {
-  console.log('hover', flg)
   isShow.value = flg
 }
 </script>

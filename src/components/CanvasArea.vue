@@ -46,7 +46,6 @@ const backgGound = computed(() => bgTrans.value ? 'transparent' : bgColor.value)
 
 const sort = ({ direc, index }) => {
   const file = files.value
-  console.log('sort', direc)
   if (direc === 'prev') {
     file.splice(index - 1, 2, file[index], file[index - 1])
   }
@@ -56,7 +55,6 @@ const sort = ({ direc, index }) => {
 }
 
 const remove = (index) => {
-  console.log(index)
   const file = files.value
   file.splice(index, 1)
 }
@@ -76,5 +74,6 @@ const remove = (index) => {
   background: v-bind(backgGound);
   color: v-bind(fontColor);
   font-weight: v-bind(fontWeight);
+  box-sizing: border-box;
 }
 </style>

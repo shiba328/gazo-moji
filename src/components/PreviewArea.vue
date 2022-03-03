@@ -80,9 +80,7 @@ const close = () => {
 }
 const loaded = () => {
   const img = new Image()
-  img.onload = () => {
-    console.log('onload')
-  }
+  img.onload = () => false
   img.src = downloadImg.value
   const w = img.naturalWidth
   const h = img.naturalHeight

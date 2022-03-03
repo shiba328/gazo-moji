@@ -24,7 +24,7 @@ module.exports = {
   ],
   rules: {
     semi: ['error'],
-    'no-console': 'off',
+    // 'no-console': 'off',
     'no-extra-semi': 'off',
     'eol-last': ['error'],
     'vue/no-v-html': 'off',

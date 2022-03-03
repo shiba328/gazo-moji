@@ -1,6 +1,6 @@
 import { defineNuxtPlugin } from '#app'
 
-import hljs from 'highlight.js'
+// import hljs from 'highlight.js'
 import Mdit from 'markdown-it'
 
 // import sub from 'markdown-it-sub'
@@ -18,18 +18,18 @@ const markdownit = new Mdit({
   langPrefix: 'language-',
   linkify: true,
   typographer: true,
-  quotes: '“”‘’',
-  highlight: (str, lang) => {
-    if (lang && hljs.getLanguage(lang)) {
-      try {
-        return '<pre class="hljs"><code>' +
-              hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
-              '</code></pre>'
-      } catch (error) { console.log(error) }
-    }
+  quotes: '“”‘’'
+  // highlight: (str, lang) => {
+  //   if (lang && hljs.getLanguage(lang)) {
+  //     try {
+  //       return '<pre class="hljs"><code>' +
+  //             hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
+  //             '</code></pre>'
+  //     } catch (error) { console.log(error) }
+  //   }
 
-    return '<pre class="hljs"><code>' + Mdit.utils.escapeHtml(str) + '</code></pre>'
-  }
+  //   return '<pre class="hljs"><code>' + Mdit.utils.escapeHtml(str) + '</code></pre>'
+  // }
 })
 // .use(sub)
 // .use(sup)

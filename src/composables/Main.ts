@@ -26,7 +26,7 @@ export function getPreviewImg () {
   const node = document.getElementById('canvas')
 
   if (node) {
-    return htmlToImage.toPng(node)
+    return htmlToImage.toPng(node, { pixelRatio: 1 })
       .then((dataUrl) => {
         downloadImg.value = dataUrl
         return {
