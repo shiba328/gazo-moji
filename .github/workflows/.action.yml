@@ -1,35 +1,43 @@
-name: Release
-on: 
-  pull_request:
-    branches:
-      - main
+name: azure
+on: [push]
+  # push:
+  #   branches:
+  #     - main
+  # pull_request:
+  #   branches:
+  #     - main
 jobs:
-  Explore-GitHub-Actions:
-    runs-on: ubuntu-latest
+  deploy:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+        node: [ 14 ]
     steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2
-
-      - name: Setup Node
-        uses: actions/setup-node@v2
+      - uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: ${{ matrix.node }}
 
-      - name: Cache dependencies
-        uses: actions/cache@v2
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v2
+        id: yarn-cache
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-yarn-azure
 
       - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn
 
-      - name: build
-      # - run: npm ci
-      # - run: npm test
+      - name: Build
         run: npm run build
 
       - name: deploy
@@ -38,13 +46,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-
-      - name: Run a multi-line script
-        run: |
-          git fetch
-          git checkout -b gh-pages --track origin/gh-pages
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          echo "{\"lastUpdate\": $(date "+%s")}" > release-date.json
-          npm run release "-m \"changelog [skip ci]\""
-          git push --follow-tags origin main
