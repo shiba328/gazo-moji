@@ -38,6 +38,9 @@ jobs:
 
       - name: Run a multi-line script
         run: |
+          git fetch
+          git checkout gh-pages
+          echo "{\"lastUpdate\": $(date "+%s")}" > release-date.json
           git config user.name github-actions
           git config user.email github-actions@github.com
           npm run release "-m \"changelog [skip ci]\""
