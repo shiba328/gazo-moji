@@ -1,42 +1,23 @@
-# name: azure
-# on: [push]
-#   # push:
-#   #   branches:
-#   #     - main
-#   # pull_request:
-#   #   branches:
-#   #     - main
-# jobs:
-#   cd:
-#     runs-on: ${{ matrix.os }}
+name: azure
+on:
+  push:
+    branches:
+      - main
 
-#     strategy:
-#       matrix:
-#         os: [ubuntu-latest]
-#         node: [14]
+jobs:
+  cd:
+    runs-on: ${{ matrix.os }}
 
-#     steps:
-#       - name: Checkout
-#         uses: actions/checkout@master
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [14]
 
-#       - name: Setup node env
-#         uses: actions/setup-node@v2.1.2
-#         with:
-#           node-version: ${{ matrix.node }}
-
-#       - name: Install dependencies
-#         run: |
-#             yarn
-#             npm install
-
-#       - name: Generate
-#         run: npm run build
-
-#       - name: Deploy
-#         uses: peaceiris/actions-gh-pages@v3
-#         with:
-#           provider: pages
-#           skip-cleanup: true
-#           github-token: $GITHUB_ACCESS_TOKEN # Set in travis-ci.org dashboard, marked secure https://docs.travis-ci.com/user/deployment/pages/#Setting-the-GitHub-token
-#           target-branch: gh-pages
-#           local-dir: dist
+    steps:
+      - name: Version
+        run: |
+          echo "{\"lastUpdate\": $(date "+%s")}" > release-date.json
+          git config user.name ${{ secrets.NAME }}
+          git config user.email ${{ secrets.EMAIL }}
+          git commit -a -m "lastUpdate [skip ci]"
+          git push
