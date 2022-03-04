@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Version
         run: |
+          git fetch
+          git checkout devlopment
           echo "{\"lastUpdate\": $(date "+%s")}" > release-date.json
           git config user.name ${{ secrets.NAME }}
           git config user.email ${{ secrets.EMAIL }}
