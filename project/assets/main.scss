@@ -1,0 +1,102 @@
+@import "./variables.scss";
+
+$var: padding, margin;
+$direc: x, y;
+$pos: top, right, bottom, left;
+$sum: 11;
+@for $i from 0 to $sum {
+  @each $v in $var {
+    // pa-0
+    $res: str-slice($v, 1, 1);
+    .#{$res}a-#{$i} {
+      #{$v}: 4px * $i;
+    }
+    //px-0
+    @each $d in $direc {
+      .#{$res}#{$d}-#{$i} {
+        @if $d == x {
+          #{$v}-right: 4px * $i;
+          #{$v}-left: 4px * $i;
+        }
+        @else {
+          #{$v}-top: 4px * $i;
+          #{$v}-bottom: 4px * $i;
+        }
+      }
+    }
+    //pl-0
+    @each $p in $pos {
+      $res2: str-slice($p, 1, 1);
+      .#{$res}#{$res2}-#{$i} {
+        #{$v}-#{$p}: 4px * $i;
+      }
+    }
+  }
+
+  //
+  .gap-#{$i} {
+    grid-gap: 0.25rem  * $i;
+    gap: 0.25rem * $i;
+  } 
+  .h#{$sum - $i} {
+    font-size: 4px * $i;
+  }
+}
+
+@each $v in $var {
+  $res: str-slice($v, 1, 1);
+  @each $p in $pos {
+    $res2: str-slice($p, 1, 1);
+    .#{$res}#{$res2}-auto {
+      #{$v}-#{$p}: auto;
+    }
+  }
+}
+
+$aligns: left, center, right;
+@each $align in $aligns {
+  .text-#{$align} {
+    text-align: #{$align};
+  }
+}
+
+$flexs: justify;
+$properties: center, start, end, flex-start, flex-end, left, right, space-between, space-around, space-evenly, stretch;
+@each $property in $properties {
+  .justify-#{$property} {
+    justify-content: #{$property};
+  }
+  .items-#{$property} {
+    align-items: #{$property};
+  }
+}
+
+html {
+  overflow-y: scroll;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+.nowrap {
+  flex-wrap: nowrap;
+}
+.column {
+  flex-direction: column;
+}
+.flex-1 {
+  flex: 1 1 0%;
+}
+.dialog {
+  background: #0009;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
