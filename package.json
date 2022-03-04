@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "nuxi dev --port 4003",
     "build": "nuxi build",
-    "build:gh-pages": "DEPLOY_ENV=GH_PAGES nuxi build",
     "start": "node .output/server/index.mjs",
     "test": "eslint --ext .ts,.js,.vue .",
     "lint": "eslint --ext .ts,.js,.vue .",
