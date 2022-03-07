@@ -13,7 +13,8 @@ import {
   mdiFormatVerticalAlignCenter,
   mdiFormatVerticalAlignBottom,
   mdiFormatBold,
-  mdiInvertColorsOff
+  mdiInvertColorsOff,
+  mdiCrop
 } from '@mdi/js'
 
 import ToolBarToggle from '@/components/ToolBarToggle'
@@ -21,6 +22,7 @@ import ToolBarBtn from '@/components/ToolBarBtn'
 
 import {
   useCanvasSize,
+  useCanvasCrop,
   useBgColor,
   useGridCount,
   useGridGap,
@@ -67,6 +69,7 @@ export interface IFToolBar {
 
 function useToolCanvas (): IFTool[] {
   const canvasSize = useCanvasSize()
+  const canvasCrop = useCanvasCrop()
   return [
     {
       key: 'canvasSize',
@@ -81,6 +84,16 @@ function useToolCanvas (): IFTool[] {
       value: canvasSize.value,
       apply: (e: MouseEvent | Event) => {
         canvasSize.value = (e.target as HTMLInputElement).value
+      }
+    },
+    {
+      key: 'canvasCrop',
+      icon: mdiCrop,
+      components: ToolBarBtn,
+      state: canvasCrop,
+      type: 'btn',
+      apply: (e: boolean) => {
+        canvasCrop.value = e
       }
     }
   ]

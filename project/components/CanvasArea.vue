@@ -39,9 +39,14 @@ const fontPos = useFontPos()
 const bgColor = useBgColor()
 const fontColor = useFontColor()
 const bgTrans = useBgTrans()
+const canvasCrop = useCanvasCrop()
 
 const gridTemplateColumns = computed(() => 'repeat(' + gridCount.value + ', 1fr)')
+
+const canvasWidht = computed(() => canvasCrop.value ? canvasSize.value + 'px' : 'auto')
+
 const fontWeight = computed(() => fontBold.value ? 'bold' : 'normal')
+
 const backgGound = computed(() => bgTrans.value ? 'transparent' : bgColor.value)
 
 const sort = ({ direc, index }) => {
@@ -58,12 +63,13 @@ const remove = (index) => {
   const file = files.value
   file.splice(index, 1)
 }
+
 </script>
 
 <style scoped>
 .canvas {
   display: grid;
-  width: v-bind(canvasSize + 'px');
+  width: v-bind(canvasWidht);
   grid-template-columns: v-bind(gridTemplateColumns);
   gap: v-bind(gridGap + 'px');
   grid-gap: v-bind(gridGap + 'px');
