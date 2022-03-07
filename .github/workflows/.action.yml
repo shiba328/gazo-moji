@@ -22,8 +22,6 @@ jobs:
           echo "{\"lastUpdate\": $(date "+%s")}" > ./project/release-date.json
           git config user.name ${{ secrets.NAME }}
           git config user.email ${{ secrets.EMAIL }}
-          git commit -a -m "lastUpdate [skip ci]"
-          git push
 
       - name: Changelog and tags
         run: |
