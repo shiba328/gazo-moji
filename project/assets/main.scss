@@ -74,6 +74,14 @@ $properties: center, start, end, flex-start, flex-end, left, right, space-betwee
 html {
   overflow-y: scroll;
 }
+body {
+  font-family: "Helvetica Neue",
+    Arial,
+    "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans",
+    Meiryo,
+    sans-serif;
+}
 
 .flex {
   display: flex;
