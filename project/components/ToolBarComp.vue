@@ -3,7 +3,7 @@
     <div
       v-for="tool, i in tools"
       :key="tool.key"
-      :class="[tool.key, { 'mr-1': tools.length - 1 != i}]"
+      :class="[tool.key, { 'mr-1': tools.length - 1 != i }]"
     >
       <ToolBarItem
         :id="tool.key"
@@ -15,14 +15,21 @@
         :items="tool.items"
         :state="tool.state"
         :type="tool.type"
+        :disabled="tool.disabled"
       />
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-import { useToolFont } from '@/composables/Tool'
+<script setup lang="ts">import { IFTool, IFToolBar } from '@/composables/Tool'
 import ToolBarItem from '@/components/ToolBarItem'
 
-const tools = useToolFont()
+// TODO: 変更待ち
+interface Props extends IFToolBar {
+  tools: IFTool[]
+  id: string
+  label: string
+}
+
+defineProps<Props>()
 </script>

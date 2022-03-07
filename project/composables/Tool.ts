@@ -13,16 +13,16 @@ import {
   mdiFormatVerticalAlignCenter,
   mdiFormatVerticalAlignBottom,
   mdiFormatBold,
-  mdiInvertColorsOff
+  mdiInvertColorsOff,
+  mdiImageSizeSelectLarge
 } from '@mdi/js'
 
 import ToolBarToggle from '@/components/ToolBarToggle'
-import ToolBarFont from '@/components/ToolBarFont'
-import ToolBarBg from '@/components/ToolBarBg'
 import ToolBarBtn from '@/components/ToolBarBtn'
 
 import {
   useCanvasSize,
+  useCanvasCrop,
   useBgColor,
   useGridCount,
   useGridGap,
@@ -32,7 +32,7 @@ import {
   useFontBold,
   useFontColor,
   useBgTrans
-} from '@/composables/State'
+} from '~~/project/composables/state/Tool'
 
 export interface IFItem {
   value: string
@@ -47,21 +47,163 @@ export interface IFAttr {
   checked?: null | true
 }
 
+export type TYPES = 'btn' | 'comp' | 'toggle'
+
 export interface IFTool {
   key: string
-  label?: string
   components: object | string
-  icon?: string
-  attr?: IFAttr
+  apply: (e: MouseEvent | Event | string | boolean) => void
   value?: string
+  attr?: IFAttr
+  icon?: string
   state?: Ref
-  apply?: (e: MouseEvent | Event | string | boolean) => void
-  update?: () => void
   items?: IFItem[]
-  type?: string
+  type?: TYPES
+  disabled?: Ref
 }
 
-export function useToolFont (): IFTool[] {
+export interface IFToolBar {
+  key: string
+  label: string
+  tools: IFTool[]
+}
+
+function useToolCanvas (): IFTool[] {
+  const canvasSize = useCanvasSize()
+  const canvasCrop = useCanvasCrop()
+  return [
+    {
+      key: 'canvasSize',
+      icon: mdiMoveResize,
+      attr: {
+        type: 'number',
+        class: 'w4em ml-1',
+        min: '0',
+        step: '100'
+      },
+      components: 'input',
+      disabled: canvasCrop,
+      value: canvasSize.value,
+      apply: (e: MouseEvent | Event) => {
+        canvasSize.value = (e.target as HTMLInputElement).value
+      }
+    },
+    {
+      key: 'canvasCrop',
+      icon: mdiImageSizeSelectLarge,
+      components: ToolBarBtn,
+      state: canvasCrop,
+      type: 'btn',
+      apply: (e: boolean) => {
+        canvasCrop.value = e
+      }
+    }
+  ]
+}
+
+function useToolBg (): IFTool[] {
+  const bgColor = useBgColor()
+  const bgTrans = useBgTrans()
+  return [
+    {
+      key: 'bgColor',
+      icon: mdiFormatColorFill,
+      attr: {
+        type: 'color',
+        class: 'ml-1'
+      },
+      components: 'input',
+      disabled: bgTrans,
+      value: bgColor.value,
+      apply: (e: MouseEvent | Event) => {
+        bgColor.value = (e.target as HTMLInputElement).value
+      }
+    },
+    {
+      key: 'bgTrans',
+      icon: mdiInvertColorsOff,
+      components: ToolBarBtn,
+      state: bgTrans,
+      type: 'btn',
+      apply: (e: boolean) => {
+        bgTrans.value = e
+      }
+    }
+  ]
+}
+
+function useToolReturn (): IFTool[] {
+  const gridCount = useGridCount()
+  return [
+    {
+      key: 'gridCount',
+      icon: mdiViewGridPlus,
+      attr: {
+        type: 'number',
+        class: 'w3em ml-1',
+        min: '1',
+        step: '1'
+      },
+      components: 'input',
+      value: gridCount.value,
+      apply: (e: MouseEvent | Event) => {
+        gridCount.value = (e.target as HTMLInputElement).value
+      }
+    }
+  ]
+}
+
+function useToolGap (): IFTool[] {
+  const gridGap = useGridGap()
+  return [
+    {
+      key: 'gridGap',
+      icon: mdiArrowExpandHorizontal,
+      attr: {
+        type: 'number',
+        class: 'w3em ml-1',
+        min: '0',
+        step: '16'
+      },
+      components: 'input',
+      value: gridGap.value,
+      apply: (e: MouseEvent | Event) => {
+        gridGap.value = (e.target as HTMLInputElement).value
+      }
+    }
+  ]
+}
+
+function useToolPos (): IFTool[] {
+  const gridPos = useGridPos()
+  return [
+    {
+      key: 'gridPos',
+      components: ToolBarToggle,
+      state: gridPos,
+      items: [
+        {
+          value: 'flex-start',
+          icon: mdiFormatVerticalAlignTop
+        },
+        {
+          value: 'center',
+          icon: mdiFormatVerticalAlignCenter
+        },
+        {
+          value: 'flex-end',
+          icon: mdiFormatVerticalAlignBottom
+        }
+      ],
+      type: 'toggle',
+      apply: (e: string) => {
+        gridPos.value = e
+      }
+    }
+  ]
+}
+
+function useToolFont (): IFTool[] {
   const fontPos = useFontPos()
   const fontSize = useFontSize()
   const fontColor = useFontColor()
@@ -130,127 +272,37 @@ export function useToolFont (): IFTool[] {
   ]
 }
 
-export function useToolBg (): IFTool[] {
-  const bgColor = useBgColor()
-  const bgTrans = useBgTrans()
+export function useTools (): IFToolBar[] {
   return [
     {
-      key: 'bgColor',
-      label: '背景',
-      icon: mdiFormatColorFill,
-      attr: {
-        type: 'color',
-        class: 'ml-1'
-      },
-      components: 'input',
-      value: bgColor.value,
-      apply: (e: MouseEvent | Event) => {
-        bgColor.value = (e.target as HTMLInputElement).value
-      }
-    },
-    {
-      key: 'bgTrans',
-      icon: mdiInvertColorsOff,
-      components: ToolBarBtn,
-      state: bgTrans,
-      type: 'btn',
-      apply: (e: boolean) => {
-        bgTrans.value = e
-      }
-    }
-  ]
-}
-
-export function useTools (): IFTool[] {
-  const canvasSize = useCanvasSize()
-  const gridCount = useGridCount()
-  const gridGap = useGridGap()
-  const gridPos = useGridPos()
-
-  return [
-    {
-      key: 'canvasSize',
-      label: '幅',
-      icon: mdiMoveResize,
-      attr: {
-        type: 'number',
-        class: 'w4em ml-1',
-        min: '0',
-        step: '100'
-      },
-      components: 'input',
-      value: canvasSize.value,
-      apply: (e: MouseEvent | Event) => {
-        canvasSize.value = (e.target as HTMLInputElement).value
-      }
+      key: 'canvas',
+      label: 'キャンバス',
+      tools: useToolCanvas()
     },
     {
       key: 'bgColor',
       label: '背景',
-      components: ToolBarBg,
-      type: 'comp'
+      tools: useToolBg()
     },
     {
-      key: 'gridCount',
+      key: 'return',
       label: '折返し',
-      icon: mdiViewGridPlus,
-      attr: {
-        type: 'number',
-        class: 'w3em ml-1',
-        min: '1',
-        step: '1'
-      },
-      components: 'input',
-      value: gridCount.value,
-      apply: (e: MouseEvent | Event) => {
-        gridCount.value = (e.target as HTMLInputElement).value
-      }
+      tools: useToolReturn()
     },
     {
       key: 'gridGap',
       label: '隙間',
-      icon: mdiArrowExpandHorizontal,
-      attr: {
-        type: 'number',
-        class: 'w3em ml-1',
-        min: '0',
-        step: '16'
-      },
-      components: 'input',
-      value: gridGap.value,
-      apply: (e: MouseEvent | Event) => {
-        gridGap.value = (e.target as HTMLInputElement).value
-      }
+      tools: useToolGap()
     },
     {
       key: 'gridPos',
       label: '配置',
-      components: ToolBarToggle,
-      state: gridPos,
-      items: [
-        {
-          value: 'flex-start',
-          icon: mdiFormatVerticalAlignTop
-        },
-        {
-          value: 'center',
-          icon: mdiFormatVerticalAlignCenter
-        },
-        {
-          value: 'flex-end',
-          icon: mdiFormatVerticalAlignBottom
-        }
-      ],
-      type: 'toggle',
-      apply: (e: string) => {
-        gridPos.value = e
-      }
+      tools: useToolPos()
     },
     {
       key: 'font',
       label: 'フォント',
-      components: ToolBarFont,
-      type: 'comp'
+      tools: useToolFont()
     }
   ]
 }

@@ -15,4 +15,5 @@ $checkedColor: $barTextColor;
 $btnBgVColor: $barTextColor;
 $btnHoverColor: lighten($barTextColor, 35%);
 $borderColor: lighten($barTextColor, 35%);
+$disabledColor: lighten($barTextColor, 25%);
 

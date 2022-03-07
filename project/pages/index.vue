@@ -15,15 +15,16 @@ import TheHeader from '@/components/TheHeader'
 import MainArea from '@/components/MainArea'
 import PreviewArea from '@/components/PreviewArea'
 import HelpArea from '@/components/HelpArea'
-
-import { useIsPreview, useIsDialog } from '@/composables/State'
+import { useIsPreview, useIsDialog } from '@/composables/state/Default'
 
 const isPreview = useIsPreview()
 const isDialog = useIsDialog()
 useMeta({
-  title: '🏞️ 画像結合・文字入れ | オンラインツール'
+  title: '画像結合・文字入れ | オンラインツール',
+  link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }]
 })
 </script>
+
 <style lang="scss" scoped>
 .is-preview {
   & :deep(.header),
@@ -32,8 +33,6 @@ useMeta({
     overflow: hidden;
   }
 }
-</style>
-<style lang="scss" scoped>
 .area {
   position: absolute;
   top: 0;

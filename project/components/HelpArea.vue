@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { useIsHelp, useIsDialog } from '@/composables/State'
+import { useIsHelp, useIsDialog } from '@/composables/state/Default'
 
 const { data } = await useAsyncData('doc', () => $fetch('/api/doc'))
 const nuxtApp = useNuxtApp()
