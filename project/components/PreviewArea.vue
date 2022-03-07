@@ -65,41 +65,19 @@
 import { mdiCloseCircleOutline, mdiDownload, mdiTwitter } from '@mdi/js'
 import TheButton from './TheButton.vue'
 import TheIcon from '@/components/TheIcon'
-import { useIsPreview, useDownloadImg, useIsDialog } from '@/composables/State'
+import { useDownloadImg } from '@/composables/state/Default'
 
+import { useClose, useLoaded, useCopy } from '@/composables/Preview'
+
+const downloadImg = useDownloadImg()
 const imgDom = ref('')
 const isSave = ref(false)
 const isCopy = ref(false)
-const isPreview = useIsPreview()
-const downloadImg = useDownloadImg()
-const isDialog = useIsDialog()
 
-const close = () => {
-  isPreview.value = false
-  isDialog.value = false
-}
-const loaded = () => {
-  const img = new Image()
-  img.onload = () => false
-  img.src = downloadImg.value
-  const w = img.naturalWidth
-  const h = img.naturalHeight
-  imgDom.value = `幅:${w}px 高さ:${h}px`
-}
-
-const download = () => {
-  const link = document.createElement('a')
-  link.download = `compile-image_${new Date().getTime()}.png`
-  link.href = downloadImg.value
-  link.click()
-  isSave.value = true
-}
-const copy = () => {
-  const url = 'https://shiba328.github.io/join-images/'
-  navigator.clipboard.writeText(url).then(() => {
-    isCopy.value = true
-  })
-}
+const close = () => useClose()
+const loaded = () => { imgDom.value = useLoaded() }
+const download = () => { isSave.value = useDownload() }
+const copy = () => { isCopy.value = useCopy() }
 </script>
 
 <style lang="scss" scoped>
@@ -119,6 +97,8 @@ const copy = () => {
   &-text {
     border: 1px solid #fff;
     border-radius: 6px;
+    max-height: 50vh;
+    overflow-y: auto;
   }
 }
 img {

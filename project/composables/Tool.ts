@@ -32,7 +32,7 @@ import {
   useFontBold,
   useFontColor,
   useBgTrans
-} from '@/composables/State'
+} from '~~/project/composables/state/Tool'
 
 export interface IFItem {
   value: string

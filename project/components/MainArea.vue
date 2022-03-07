@@ -27,7 +27,7 @@ import CanvasArea from '@/components/CanvasArea'
 import ToolBar from '@/components/ToolBar'
 
 import { useDrag, useDrop } from '@/composables/Main'
-import { useFiles } from '@/composables/State'
+import { useFiles } from '@/composables/state/Default'
 
 const dragover = ref(false)
 

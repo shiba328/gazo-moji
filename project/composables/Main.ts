@@ -1,5 +1,5 @@
 import * as htmlToImage from 'html-to-image'
-import { useFiles, useIsPreview, useDownloadImg } from '@/composables/State'
+import { useFiles, useIsPreview, useDownloadImg } from '@/composables/state/Default'
 
 export function useDrag (dragover) {
   return (flg: boolean) => {

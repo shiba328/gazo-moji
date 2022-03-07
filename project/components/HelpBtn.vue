@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex items-center items-center"
+    class="flex items-center items-center text-btn"
     @click="isHelp = !isHelp, isDialog = true"
   >
     <TheIcon
@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import { mdiHelpCircleOutline } from '@mdi/js'
-import { useIsHelp, useIsDialog } from '@/composables/State'
+import { useIsHelp, useIsDialog } from '@/composables/state/Default'
 import TheIcon from '@/components/TheIcon'
 
 const isHelp = useIsHelp()

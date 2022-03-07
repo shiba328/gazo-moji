@@ -15,71 +15,59 @@
 <script setup lang="ts">
 import ImgItem from '@/components/ImgItem'
 import {
+  useBgColor,
+  useBgTrans,
+  useCanvasCrop,
   useCanvasSize,
+  useFontBold,
+  useFontColor,
+  useFontPos,
+  useFontSize,
   useGridCount,
   useGridGap,
-  useGridPos,
-  useFontSize,
-  useFontBold,
-  useFontPos,
-  useBgColor,
-  useFiles,
-  useFontColor,
-  useBgTrans
-} from '@/composables/State'
+  useGridPos
+} from '@/composables/state/Tool'
+
+import { useFiles } from '@/composables/state/Default'
+import { useSort, useRemove } from '@/composables/Canvas'
 
 const files = useFiles()
+const sort = ({ direc, index }) => { useSort({ files, direc, index }) }
+const remove = (index) => { useRemove({ files, index }) }
+
+// CanvasStyle
+const bgColor = useBgColor()
+const bgTrans = useBgTrans()
+const canvasCrop = useCanvasCrop()
 const canvasSize = useCanvasSize()
+const fontBold = useFontBold()
+const fontColor = useFontColor()
+const fontPos = useFontPos()
+const fontSize = useFontSize()
 const gridCount = useGridCount()
 const gridGap = useGridGap()
 const gridPos = useGridPos()
-const fontSize = useFontSize()
-const fontBold = useFontBold()
-const fontPos = useFontPos()
-const bgColor = useBgColor()
-const fontColor = useFontColor()
-const bgTrans = useBgTrans()
-const canvasCrop = useCanvasCrop()
-
-const gridTemplateColumns = computed(() => 'repeat(' + gridCount.value + ', 1fr)')
-
-const canvasWidht = computed(() => canvasCrop.value ? canvasSize.value + 'px' : 'auto')
-
-const fontWeight = computed(() => fontBold.value ? 'bold' : 'normal')
 
 const backgGound = computed(() => bgTrans.value ? bgColor.value : 'transparent')
-
-const sort = ({ direc, index }) => {
-  const file = files.value
-  if (direc === 'prev') {
-    file.splice(index - 1, 2, file[index], file[index - 1])
-  }
-  if (direc === 'next') {
-    file.splice(index, 2, file[index + 1], file[index])
-  }
-}
-
-const remove = (index) => {
-  const file = files.value
-  file.splice(index, 1)
-}
-
+const canvasWidht = computed(() => canvasCrop.value ? canvasSize.value + 'px' : 'auto')
+const fontWeight = computed(() => fontBold.value ? 'bold' : 'normal')
+const gridTemplateColumns = computed(() => 'repeat(' + gridCount.value + ', 1fr)')
 </script>
 
 <style scoped>
 .canvas {
+  background: v-bind(backgGound);
+  box-sizing: border-box;
+  color: v-bind(fontColor);
   display: grid;
-  width: v-bind(canvasWidht);
-  grid-template-columns: v-bind(gridTemplateColumns);
+  font-size: v-bind(fontSize + 'px');
+  font-weight: v-bind(fontWeight);
   gap: v-bind(gridGap + 'px');
   grid-gap: v-bind(gridGap + 'px');
+  grid-template-columns: v-bind(gridTemplateColumns);
   padding: v-bind(gridGap + 'px');
   place-items: v-bind(gridPos);
-  font-size: v-bind(fontSize + 'px');
   text-align: v-bind(fontPos);
-  background: v-bind(backgGound);
-  color: v-bind(fontColor);
-  font-weight: v-bind(fontWeight);
-  box-sizing: border-box;
+  width: v-bind(canvasWidht);
 }
 </style>

@@ -51,7 +51,7 @@
 <script setup lang="ts">
 import { mdiCameraPlus, mdiDownload } from '@mdi/js'
 import { getPreviewImg } from '@/composables/Main'
-import { useIsDialog } from '@/composables/State'
+import { useIsDialog } from '@/composables/state/Default'
 import { useTools } from '@/composables/Tool'
 
 import TheIcon from '@/components/TheIcon'

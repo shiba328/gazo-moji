@@ -108,3 +108,9 @@ body {
   align-items: center;
   justify-content: center;
 }
+.text-btn {
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
