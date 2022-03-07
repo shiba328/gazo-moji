@@ -7,7 +7,7 @@
     <div class="img">
       <div
         v-if="isShow"
-        class="tools flex items-center justify-center"
+        class="tools flex nowrap items-center justify-center"
       >
         <TheIcon
           :path="mdiArrowLeftBoldCircleOutline"
@@ -86,7 +86,9 @@ const hover = (flg) => {
   img {
     max-width: 100%;
     max-height: 100%;
-    display: block;
+    display: inline-block;
+    line-height: 0;
+    margin: auto;
   }
   &::after {
     content: '';
