@@ -22,16 +22,10 @@
           class="cell"
         >
           <div class="label" v-text="tool.label" />
-          <ToolBarItem
+          <ToolBarComp
             :id="tool.key"
-            :icon="tool.icon"
-            :value="tool.value"
-            :apply="tool.apply"
-            :components="tool.components"
-            :attr="tool.attr"
-            :items="tool.items"
-            :state="tool.state"
-            :type="tool.type"
+            :label="tool.label"
+            :tools="tool.tools"
           />
         </div>
         <TheDivider
@@ -61,7 +55,7 @@ import { useIsDialog } from '@/composables/State'
 import { useTools } from '@/composables/Tool'
 
 import TheIcon from '@/components/TheIcon'
-import ToolBarItem from '@/components/ToolBarItem'
+import ToolBarComp from '@/components/ToolBarComp'
 import TheDivider from '@/components/TheDivider'
 
 const tools = useTools()

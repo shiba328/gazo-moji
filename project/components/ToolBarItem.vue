@@ -12,6 +12,7 @@
       :items="items"
       :apply="apply"
       :state="state"
+      :tools="tools"
       v-bind="attr"
       @input="type === 'comp' ? false : apply($event)"
       @toggle="apply"
@@ -21,7 +22,7 @@
 
 <script setup lang="ts">
 import { Ref } from 'vue'
-import { IFAttr, IFItem } from '@/composables/Tool'
+import { IFAttr, IFItem, IFTool } from '@/composables/Tool'
 import TheIcon from '@/components/TheIcon'
 
 defineProps<{
@@ -34,6 +35,7 @@ defineProps<{
   items?: IFItem
   state: Ref
   type?: string
+  tools?: IFTool[]
 }>()
 </script>
 

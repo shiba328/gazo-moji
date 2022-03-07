@@ -1,5 +1,5 @@
 const useCanvasSize = () => useState<string>('canvasSize', () => '640')
-const useGridCount = () => useState<string>('gridCount', () => '2')
+const useGridCount = () => useState<string>('gridCount', () => '1')
 const useGridGap = () => useState<string>('gridGap', () => '16')
 const useGridPos = () => useState<string>('gridPos', () => 'center')
 const useFontSize = () => useState<string>('fontSize', () => '24')
