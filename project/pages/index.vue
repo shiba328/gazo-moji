@@ -15,13 +15,13 @@ import TheHeader from '@/components/TheHeader'
 import MainArea from '@/components/MainArea'
 import PreviewArea from '@/components/PreviewArea'
 import HelpArea from '@/components/HelpArea'
-
 import { useIsPreview, useIsDialog } from '@/composables/State'
 
 const isPreview = useIsPreview()
 const isDialog = useIsDialog()
 useMeta({
-  title: '🏞️ 画像結合・文字入れ | オンラインツール'
+  title: '画像結合・文字入れ | オンラインツール',
+  link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }]
 })
 </script>
 <style lang="scss" scoped>
