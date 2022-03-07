@@ -27,6 +27,6 @@ jobs:
 
       - name: Changelog and tags
         run: |
-          yarn install
-          yarn release "-m \"changelog [skip ci]\""
+          yarn add standard-version
+          yarn standard-version "-m \"changelog [skip ci]\""
           git push --follow-tags origin main
