@@ -42,16 +42,6 @@ const files = useFiles()
   position: relative;
   padding: 5em 0em 8em;
 }
-.dragover::before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgb(33 150 248 / 30%);
-}
 .bg {
   position: fixed;
   z-index: 0;
@@ -62,6 +52,16 @@ const files = useFiles()
   background-image: linear-gradient(45deg, #eee 25%, transparent 25%), linear-gradient(-45deg, #eee 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #eee 75%), linear-gradient(-45deg, transparent 75%, #eee 75%);
   background-size: 20px 20px;
   background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+.dragover .bg::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgb(33 150 248 / 30%);
 }
 #canvas {
   position: relative;

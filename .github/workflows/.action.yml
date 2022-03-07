@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - devlopment
+      - main
 
 jobs:
   cd:
@@ -24,3 +25,9 @@ jobs:
           git config user.email ${{ secrets.EMAIL }}
           git commit -a -m "lastUpdate [skip ci]"
           git push
+
+      - name: Changelog and tags
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          yarn release "-m \"changelog [skip ci]\""
+          git push --follow-tags origin master
