@@ -12,7 +12,7 @@
       :items="items"
       :apply="apply"
       :state="state"
-      :tools="tools"
+      :disabled="compDisabled"
       v-bind="attr"
       @input="type === 'comp' ? false : apply($event)"
       @toggle="apply"
@@ -22,21 +22,26 @@
 
 <script setup lang="ts">
 import { Ref } from 'vue'
-import { IFAttr, IFItem, IFTool } from '@/composables/Tool'
+import { IFAttr, IFItem, IFTool, TYPES } from '@/composables/Tool'
 import TheIcon from '@/components/TheIcon'
 
-defineProps<{
+// TODO: 変更待ち
+interface Props extends IFTool {
   id: string,
-  icon?: string,
-  value?: string,
-  apply?:(e) => void,
-  components?: object | string,
-  attr?: IFAttr,
-  items?: IFItem
-  state: Ref
-  type?: string
-  tools?: IFTool[]
-}>()
+  components: object | string,
+  apply:(e) => void,
+  value?: string
+  attr?: IFAttr
+  icon?: string
+  state?: Ref
+  items?: IFItem[]
+  type?: TYPES
+  disabled?: Ref
+}
+
+const { disabled } = defineProps<Props>()
+
+const compDisabled = computed(() => disabled && !disabled.value)
 </script>
 
 <style lang="scss" scoped>
@@ -66,6 +71,10 @@ defineProps<{
   color: currentColor;
   border: 1px solid currentColor;
   border-radius: 4px;
+
+  &:disabled {
+    background: $disabledColor;
+  }
 }
 .w4em {
   width: 3.8em;

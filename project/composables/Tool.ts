@@ -14,7 +14,7 @@ import {
   mdiFormatVerticalAlignBottom,
   mdiFormatBold,
   mdiInvertColorsOff,
-  mdiCrop
+  mdiImageSizeSelectLarge
 } from '@mdi/js'
 
 import ToolBarToggle from '@/components/ToolBarToggle'
@@ -47,7 +47,7 @@ export interface IFAttr {
   checked?: null | true
 }
 
-type TYPES = 'btn' | 'comp' | 'toggle'
+export type TYPES = 'btn' | 'comp' | 'toggle'
 
 export interface IFTool {
   key: string
@@ -59,6 +59,7 @@ export interface IFTool {
   state?: Ref
   items?: IFItem[]
   type?: TYPES
+  disabled?: Ref
 }
 
 export interface IFToolBar {
@@ -81,6 +82,7 @@ function useToolCanvas (): IFTool[] {
         step: '100'
       },
       components: 'input',
+      disabled: canvasCrop,
       value: canvasSize.value,
       apply: (e: MouseEvent | Event) => {
         canvasSize.value = (e.target as HTMLInputElement).value
@@ -88,7 +90,7 @@ function useToolCanvas (): IFTool[] {
     },
     {
       key: 'canvasCrop',
-      icon: mdiCrop,
+      icon: mdiImageSizeSelectLarge,
       components: ToolBarBtn,
       state: canvasCrop,
       type: 'btn',
@@ -111,6 +113,7 @@ function useToolBg (): IFTool[] {
         class: 'ml-1'
       },
       components: 'input',
+      disabled: bgTrans,
       value: bgColor.value,
       apply: (e: MouseEvent | Event) => {
         bgColor.value = (e.target as HTMLInputElement).value

@@ -47,7 +47,7 @@ const canvasWidht = computed(() => canvasCrop.value ? canvasSize.value + 'px' : 
 
 const fontWeight = computed(() => fontBold.value ? 'bold' : 'normal')
 
-const backgGound = computed(() => bgTrans.value ? 'transparent' : bgColor.value)
+const backgGound = computed(() => bgTrans.value ? bgColor.value : 'transparent')
 
 const sort = ({ direc, index }) => {
   const file = files.value

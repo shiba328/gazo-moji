@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="{'checked': state.value }"
+    :class="{'checked': !state.value }"
     class="btn"
     @click="apply(!state.value)"
   >

@@ -12,7 +12,7 @@ const useFiles = () => useState<string[]>('files', () => [])
 const useIsPreview = () => useState<boolean>('preview', () => false)
 const useDownloadImg = () => useState<string>('downloadImage', () => '')
 const useImgDom = () => useState<string>('imgDom', () => '')
-const useBgTrans = () => useState<boolean>('bgTrans', () => false)
+const useBgTrans = () => useState<boolean>('bgTrans', () => true)
 const useIsHelp = () => useState<boolean>('isHelp', () => false)
 const useIsDialog = () => useState<boolean>('isDialog', () => false)
 
