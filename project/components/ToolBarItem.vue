@@ -7,7 +7,7 @@
     />
     <component
       :is="components"
-      :value="value"
+      :value="compValue"
       :icon="icon"
       :items="items"
       :apply="apply"
@@ -30,7 +30,7 @@ interface Props extends IFTool {
   id: string,
   components: object | string,
   apply:(e) => void,
-  value?: string
+  value?: Ref
   attr?: IFAttr
   icon?: string
   state?: Ref
@@ -39,8 +39,9 @@ interface Props extends IFTool {
   disabled?: Ref
 }
 
-const { disabled } = defineProps<Props>()
+const { disabled, value } = defineProps<Props>()
 
+const compValue = computed(() => value && value.value)
 const compDisabled = computed(() => disabled && !disabled.value)
 </script>
 
