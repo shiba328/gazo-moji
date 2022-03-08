@@ -21,7 +21,10 @@ const isPreview = useIsPreview()
 const isDialog = useIsDialog()
 useMeta({
   title: '画像結合・文字入れ | オンラインツール',
-  link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }]
+  link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }],
+  meta: [
+    { name: 'viewport', content: 'width=device-width,initial-scale=1.0,maximum-scale=1.0' }
+  ]
 })
 </script>
 

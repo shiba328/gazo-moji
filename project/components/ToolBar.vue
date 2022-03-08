@@ -78,6 +78,11 @@ const preview = () => {
   margin-bottom: 1em;
   color: $barTextColor;
   z-index: 1;
+  overflow: auto;
+
+  @include mq-down(lg) {
+    justify-content: flex-start;
+  }
 }
 .Main {
   margin: 0 1em;

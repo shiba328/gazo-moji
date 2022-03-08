@@ -6,10 +6,11 @@
   >
     <div class="img">
       <div
-        v-if="isShow"
+        v-show="isShow"
         class="tools flex nowrap items-center justify-center"
       >
         <TheIcon
+          v-show="total !== 1"
           :path="mdiArrowLeftBoldCircleOutline"
           :class="{'isMin': index === 0}"
           size="40px"
@@ -23,6 +24,7 @@
           @click.stop="$emit('remove', index)"
         />
         <TheIcon
+          v-show="total !== 1"
           :path="mdiArrowRightBoldCircleOutline"
           :class="{'isMax': index === total - 1}"
           size="40px"
@@ -86,7 +88,7 @@ const hover = (flg) => {
   img {
     max-width: 100%;
     max-height: 100%;
-    display: inline-block;
+    display: block;
     line-height: 0;
     margin: auto;
   }

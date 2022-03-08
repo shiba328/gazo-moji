@@ -40,6 +40,9 @@ $sum: 11;
   } 
   .h#{$sum - $i} {
     font-size: 4px * $i;
+    @include mq-down() {
+      font-size: 2.5px * $i;
+    }
   }
 }
 
@@ -68,6 +71,17 @@ $properties: center, start, end, flex-start, flex-end, left, right, space-betwee
   }
   .items-#{$property} {
     align-items: #{$property};
+  }
+}
+
+.no-sp {
+  @include mq-down() {
+    display: none !important;
+  }
+}
+.sp-only {
+  @include mq-up() {
+    display: none !important;
   }
 }
 
@@ -113,4 +127,9 @@ body {
   &:hover {
     text-decoration: underline;
   }
+}
+
+i {
+  font-style: normal;
+  display: inline-block;
 }

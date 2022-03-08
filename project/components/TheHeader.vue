@@ -5,7 +5,7 @@
         🏞️ 画像結合・文字入れ
       </div>
     </div>
-    <div class="flex justify-end flex-1 gap-2 mr-4">
+    <div class="flex justify-end flex-1 gap-2 mr-4 no-sp">
       <HelpBtn />
       <VersionDate />
     </div>

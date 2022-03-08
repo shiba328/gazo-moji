@@ -1,17 +1,25 @@
 <template>
   <div class="droparea text-center flex column items-center">
-    <TheIcon
-      :path="mdiCameraPlus"
-      size="60px"
-    />
-    <div class="h3">
+    <label for="select">
+      <TheIcon
+        :path="mdiCameraPlus"
+        size="60px"
+      />
+    </label>
+    <div class="h3 no-sp">
       ここに画像ファイルをドラッグ&amp;ドロップする
     </div>
-    <div class="hr" style="width: 100%">
+    <div class="hr no-sp" style="width: 100%">
       または
     </div>
-    <input type="file" multiple @change="$emit('onChange', $event)">
-    <div>
+    <input
+      id="select"
+      type="file"
+      multiple
+      accept="image/*"
+      @change="$emit('onChange', $event)"
+    >
+    <div class="no-sp">
       (Shiftキーを押しながらファイルを複数選択可能)
     </div>
     <ul class="text-left h6">

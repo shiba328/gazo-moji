@@ -118,7 +118,6 @@ img {
   position: absolute;
   top: 70px;
   left: 0;
-  // height: 100%;
   width: 100%;
   margin: 0;
 
