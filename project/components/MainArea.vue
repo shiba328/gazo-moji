@@ -26,14 +26,14 @@ import DropArea from '@/components/DropArea'
 import CanvasArea from '@/components/CanvasArea'
 import ToolBar from '@/components/ToolBar'
 
-import { useDrag, useDrop } from '@/composables/Main'
+import { useDrag, useUpload } from '@/composables/Main'
 import { useFiles } from '@/composables/state/Default'
 
 const dragover = ref(false)
 
 const onDrag = useDrag(dragover)
-const onDrop = useDrop()
-const change = (e: Event) => useDrop()(e)
+const onDrop = useUpload()
+const change = (e: Event) => useUpload()(e)
 const files = useFiles()
 </script>
 

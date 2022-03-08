@@ -13,6 +13,7 @@
 </template>
 
 <script setup lang="ts">
+import { Ref } from 'vue'
 import ImgItem from '@/components/ImgItem'
 import {
   useBgColor,
@@ -31,7 +32,7 @@ import {
 import { useFiles } from '@/composables/state/Default'
 import { useSort, useRemove } from '@/composables/Canvas'
 
-const files = useFiles()
+const files: Ref<string[]> = useFiles()
 const sort = ({ direc, index }) => { useSort({ files, direc, index }) }
 const remove = (index) => { useRemove({ files, index }) }
 
@@ -49,7 +50,7 @@ const gridGap = useGridGap()
 const gridPos = useGridPos()
 
 const backgGound = computed(() => bgTrans.value ? bgColor.value : 'transparent')
-const canvasWidht = computed(() => canvasCrop.value ? canvasSize.value + 'px' : 'auto')
+const canvasWidth = computed(() => canvasCrop.value ? canvasSize.value + 'px' : 'auto')
 const fontWeight = computed(() => fontBold.value ? 'bold' : 'normal')
 const gridTemplateColumns = computed(() => 'repeat(' + gridCount.value + ', 1fr)')
 </script>
@@ -68,6 +69,6 @@ const gridTemplateColumns = computed(() => 'repeat(' + gridCount.value + ', 1fr)
   padding: v-bind(gridGap + 'px');
   place-items: v-bind(gridPos);
   text-align: v-bind(fontPos);
-  width: v-bind(canvasWidht);
+  width: v-bind(canvasWidth);
 }
 </style>

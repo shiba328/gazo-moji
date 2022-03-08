@@ -7,16 +7,17 @@ export function useDrag (dragover) {
   }
 }
 
-export function useDrop () {
+export function useUpload () {
   const files = useFiles()
   return (e) => {
     const tmpfiles = e.dataTransfer ? e.dataTransfer.files : e.target.files
-    files.value.push(...getFiles(tmpfiles))
+    const res: File[] = Array.from(tmpfiles).filter((v:File) => v.type.match(/image/)) as File[]
+    files.value.push(...getFiles(res))
   }
 }
 
-export function getFiles (files:FileList): string[] {
-  return Array.from(files).map(file => URL.createObjectURL(file))
+export function getFiles (files:File[]): string[] {
+  return files.map(file => URL.createObjectURL(file))
 }
 
 export function getPreviewImg () {
