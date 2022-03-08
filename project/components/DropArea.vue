@@ -44,6 +44,7 @@ defineEmits(['onChange'])
   filter: drop-shadow(0 0 20px $shadowColor);
   border-radius: $borderRadius;
   line-height: 2;
+  width: 100%;
 }
 .hr {
   display: flex;

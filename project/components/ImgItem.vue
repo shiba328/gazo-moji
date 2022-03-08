@@ -86,8 +86,6 @@ const hover = (flg) => {
 .img {
   position: relative;
   img {
-    max-width: 100%;
-    max-height: 100%;
     display: block;
     line-height: 0;
     margin: auto;

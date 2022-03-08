@@ -1,6 +1,6 @@
 <template>
-  <div class="toolbar flex nowrap justify-center">
-    <div class="Upload bar flex items-center">
+  <div class="toolbar flex">
+    <div class="update bar flex items-center">
       <label
         class="cell btn text-center"
       >
@@ -12,7 +12,7 @@
         <input type="file" style="display:none" multiple @change="$emit('upload', $event)">
       </label>
     </div>
-    <div class="Main bar flex nowrap">
+    <div class="tools bar flex nowrap">
       <template
         v-for="tool, i in tools"
         :key="tool.key"
@@ -33,7 +33,7 @@
         />
       </template>
     </div>
-    <div class="Preview bar flex items-center">
+    <div class="preview bar flex items-center">
       <div
         class="cell btn text-center"
         @click="preview"
@@ -68,28 +68,35 @@ const preview = () => {
 
 <style lang="scss" scoped>
 @import "@/assets/main.scss";
-
 .toolbar {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
   filter: drop-shadow(0 0 20px $barShadowColor);
-  margin-bottom: 1em;
   color: $barTextColor;
   z-index: 1;
-  overflow: auto;
+  justify-content: center;
+  flex-wrap: nowrap;
 
   @include mq-down(lg) {
-    justify-content: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
   }
 }
-.Main {
-  margin: 0 1em;
+.tools {
+  @include mq-down(lg) {
+    overflow: auto;
+    order: 3
+  }
+  @include mq-up(lg) {
+    margin: 0 1em;
+  }
 }
 .bar {
   border-radius: $borderRadius;
   background: $barBgColor;
+  margin-bottom: 1em;
 }
 .label {
   display: inline-block;

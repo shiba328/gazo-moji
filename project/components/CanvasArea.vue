@@ -53,6 +53,7 @@ const backgGound = computed(() => bgTrans.value ? bgColor.value : 'transparent')
 const canvasWidth = computed(() => canvasCrop.value ? canvasSize.value + 'px' : 'auto')
 const fontWeight = computed(() => fontBold.value ? 'bold' : 'normal')
 const gridTemplateColumns = computed(() => 'repeat(' + gridCount.value + ', 1fr)')
+const canvasMax = computed(() => canvasCrop.value ? '100%' : 'none')
 </script>
 
 <style scoped>
@@ -70,5 +71,9 @@ const gridTemplateColumns = computed(() => 'repeat(' + gridCount.value + ', 1fr)
   place-items: v-bind(gridPos);
   text-align: v-bind(fontPos);
   width: v-bind(canvasWidth);
+}
+:deep(img) {
+  max-width: v-bind(canvasMax);
+  max-height: v-bind(canvasMax);
 }
 </style>

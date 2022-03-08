@@ -25,6 +25,10 @@
 import DropArea from '@/components/DropArea'
 import CanvasArea from '@/components/CanvasArea'
 import ToolBar from '@/components/ToolBar'
+import {
+  useCanvasCrop,
+  useCanvasSize
+} from '@/composables/state/Tool'
 
 import { useDrag, useUpload } from '@/composables/Main'
 import { useFiles } from '@/composables/state/Default'
@@ -35,12 +39,26 @@ const onDrag = useDrag(dragover)
 const onDrop = useUpload()
 const change = (e: Event) => useUpload()(e)
 const files = useFiles()
-</script>
 
+const canvasCrop = useCanvasCrop()
+const canvasSize = useCanvasSize()
+const canvasWidht = computed(() => canvasCrop.value ? canvasSize.value + 'px' : 'auto')
+</script>
+<style scoped>
+.main {
+  width: v-bind(canvasWidht);
+}
+</style>
 <style lang="scss" scoped>
+@import "@/assets/main.scss";
 .main {
   position: relative;
   padding: 5em 0em 8em;
+  overflow: auto;
+
+  @include mq-down(lg) {
+    justify-content: unset;
+  }
 }
 .bg {
   position: fixed;
