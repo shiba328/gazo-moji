@@ -1,10 +1,10 @@
 <template>
   <div
-    class="area flex nowrap column"
+    class="area"
     :class="{'is-preview': isDialog}"
   >
     <TheHeader />
-    <MainArea class="flex-1" />
+    <MainArea />
     <PreviewArea v-if="isPreview" />
     <HelpArea />
   </div>
@@ -29,19 +29,19 @@ useMeta({
 </script>
 
 <style lang="scss" scoped>
-.is-preview {
-  & :deep(.header),
-  & :deep(.main) {
-    filter: blur(3px);
-    overflow: hidden;
-  }
-}
 .area {
-  position: absolute;
-  top: 0;
-  left: 0;
-  overflow: auto;
-  height: 100vh;
+  height: 100%;
   width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+
+  &.is-preview {
+    & :deep(.header),
+    & :deep(.main) {
+      filter: blur(3px);
+      overflow: hidden;
+    }
+  }
 }
 </style>

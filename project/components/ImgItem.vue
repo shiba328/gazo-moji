@@ -8,7 +8,7 @@
     <div class="img">
       <div
         v-show="isShow"
-        class="tools flex nowrap items-center justify-center"
+        class="tools"
       >
         {{ index + 1 }}.
         <TheIcon
@@ -37,6 +37,7 @@
       <img :src="src">
     </div>
     <div
+      :class="{'hover': isShow}"
       class="caption"
       contenteditable="true"
     />
@@ -77,6 +78,10 @@ const onClick = (direc) => {
 }
 .tools {
   position: absolute;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
   top: 50%;
   z-index: 2;
   margin-top: -20px;
@@ -118,6 +123,9 @@ const onClick = (direc) => {
   }
 }
 .caption {
-  line-height: 1;
+
+  &.hover {
+    outline: -webkit-focus-ring-color auto 1px;
+  }
 }
 </style>

@@ -1,12 +1,11 @@
 <template>
   <div
-    class="main flex items-center justify-center"
+    class="main"
     :class="{'dragover': dragover}"
     @dragover.prevent="onDrag(true)"
     @dragleave.prevent="onDrag(false)"
     @drop.prevent="onDrag(false), onDrop($event)"
   >
-    <div class="bg" />
     <DropArea
       v-if="files.length === 0"
       @onChange="change"
@@ -52,21 +51,18 @@ const canvasWidht = computed(() => canvasCrop.value ? canvasSize.value + 'px' : 
 <style lang="scss" scoped>
 @import "@/assets/main.scss";
 .main {
-  position: relative;
-  padding: 5em 0em 8em;
+  width: 100%;
+  height: 98%;
   overflow: auto;
+  flex: 1 1 0%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding: 20px 0 100px 0;
 
-  @include mq-down(lg) {
-    justify-content: unset;
-  }
-}
-.bg {
-  position: fixed;
-  z-index: 0;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
   background-image: linear-gradient(45deg, #eee 25%, transparent 25%), linear-gradient(-45deg, #eee 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #eee 75%), linear-gradient(-45deg, transparent 75%, #eee 75%);
   background-size: 20px 20px;
   background-position: 0 0, 0 10px, 10px -10px, -10px 0px;

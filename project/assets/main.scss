@@ -85,8 +85,10 @@ $properties: center, start, end, flex-start, flex-end, left, right, space-betwee
   }
 }
 
-html {
-  overflow-y: scroll;
+html, body, #__nuxt {
+  height: 100%;
+  padding: 0;
+  margin: 0;
 }
 body {
   font-family: "Helvetica Neue",
