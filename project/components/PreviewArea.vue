@@ -28,7 +28,7 @@
       </div>
       <div
         v-if="isSave"
-        class="save flex justify-center items-center"
+        class="save"
       >
         <div class="inner">
           <div>
@@ -115,10 +115,12 @@ img {
   }
 }
 .save {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   top: 70px;
   left: 0;
-  // height: 100%;
   width: 100%;
   margin: 0;
 

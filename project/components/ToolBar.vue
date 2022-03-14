@@ -1,6 +1,6 @@
 <template>
-  <div class="toolbar flex nowrap justify-center">
-    <div class="Upload bar flex items-center">
+  <div class="toolbar">
+    <div class="update bar">
       <label
         class="cell btn text-center"
       >
@@ -12,7 +12,7 @@
         <input type="file" style="display:none" multiple @change="$emit('upload', $event)">
       </label>
     </div>
-    <div class="Main bar flex nowrap">
+    <div class="tools bar">
       <template
         v-for="tool, i in tools"
         :key="tool.key"
@@ -33,7 +33,7 @@
         />
       </template>
     </div>
-    <div class="Preview bar flex items-center">
+    <div class="preview bar">
       <div
         class="cell btn text-center"
         @click="preview"
@@ -60,31 +60,43 @@ import TheDivider from '@/components/TheDivider'
 
 const tools = useTools()
 const isDialog = useIsDialog()
-const preview = () => {
-  getPreviewImg()
+const preview = async () => {
+  await getPreviewImg()
   isDialog.value = true
 }
 </script>
 
 <style lang="scss" scoped>
 @import "@/assets/main.scss";
-
 .toolbar {
   position: fixed;
-  bottom: 0;
-  left: 0;
+  display: flex;
+  bottom: 12px;
   width: 100%;
   filter: drop-shadow(0 0 20px $barShadowColor);
-  margin-bottom: 1em;
   color: $barTextColor;
   z-index: 1;
+  justify-content: center;
+  flex-wrap: nowrap;
+
+  @include mq-down(lg) {
+    justify-content: space-between;
+    bottom: 0;
+  }
 }
-.Main {
+.tools {
   margin: 0 1em;
+  @include mq-down(lg) {
+    overflow: auto;
+  }
 }
 .bar {
   border-radius: $borderRadius;
   background: $barBgColor;
+  margin-bottom: 1em;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
 }
 .label {
   display: inline-block;

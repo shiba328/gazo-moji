@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center">
+  <div class="flex items-center no-sp">
     Updated: {{ lastupdate }}
     <a href="https://github.com/shiba328/gazo-moji" target="_blink" SameSite="None">
       <TheIcon

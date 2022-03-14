@@ -45,6 +45,7 @@ export interface IFAttr {
   min?: string
   step?: string
   checked?: null | true
+  inputmode?: string
 }
 
 export type TYPES = 'btn' | 'comp' | 'toggle'
@@ -53,7 +54,7 @@ export interface IFTool {
   key: string
   components: object | string
   apply: (e: MouseEvent | Event | string | boolean) => void
-  value?: string
+  value?: Ref
   attr?: IFAttr
   icon?: string
   state?: Ref
@@ -79,11 +80,12 @@ function useToolCanvas (): IFTool[] {
         type: 'number',
         class: 'w4em ml-1',
         min: '0',
-        step: '100'
+        step: '100',
+        inputmode: 'numeric'
       },
       components: 'input',
       disabled: canvasCrop,
-      value: canvasSize.value,
+      value: canvasSize,
       apply: (e: MouseEvent | Event) => {
         canvasSize.value = (e.target as HTMLInputElement).value
       }
@@ -114,7 +116,7 @@ function useToolBg (): IFTool[] {
       },
       components: 'input',
       disabled: bgTrans,
-      value: bgColor.value,
+      value: bgColor,
       apply: (e: MouseEvent | Event) => {
         bgColor.value = (e.target as HTMLInputElement).value
       }
@@ -145,7 +147,7 @@ function useToolReturn (): IFTool[] {
         step: '1'
       },
       components: 'input',
-      value: gridCount.value,
+      value: gridCount,
       apply: (e: MouseEvent | Event) => {
         gridCount.value = (e.target as HTMLInputElement).value
       }
@@ -166,7 +168,7 @@ function useToolGap (): IFTool[] {
         step: '16'
       },
       components: 'input',
-      value: gridGap.value,
+      value: gridGap,
       apply: (e: MouseEvent | Event) => {
         gridGap.value = (e.target as HTMLInputElement).value
       }
@@ -219,7 +221,7 @@ function useToolFont (): IFTool[] {
         step: '4'
       },
       components: 'input',
-      value: fontSize.value,
+      value: fontSize,
       apply: (e: MouseEvent | Event) => {
         fontSize.value = (e.target as HTMLInputElement).value
       }
@@ -264,7 +266,7 @@ function useToolFont (): IFTool[] {
         type: 'color'
       },
       components: 'input',
-      value: fontColor.value,
+      value: fontColor,
       apply: (e: MouseEvent | Event) => {
         fontColor.value = (e.target as HTMLInputElement).value
       }

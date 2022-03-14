@@ -3,18 +3,21 @@
     class="imgitem"
     @mouseenter.self="hover(true)"
     @mouseleave.self="hover(false)"
+    @click="hover(!isShow)"
   >
     <div class="img">
       <div
-        v-if="isShow"
-        class="tools flex nowrap items-center justify-center"
+        v-show="isShow"
+        class="tools"
       >
+        {{ index + 1 }}.
         <TheIcon
+          v-show="total !== 1"
           :path="mdiArrowLeftBoldCircleOutline"
           :class="{'isMin': index === 0}"
           size="40px"
           class="btn move"
-          @click.stop="$emit('sort', { direc: 'prev', index })"
+          @click.stop="onClick('prev')"
         />
         <TheIcon
           :path="mdiCloseCircleOutline"
@@ -23,16 +26,18 @@
           @click.stop="$emit('remove', index)"
         />
         <TheIcon
+          v-show="total !== 1"
           :path="mdiArrowRightBoldCircleOutline"
           :class="{'isMax': index === total - 1}"
           size="40px"
           class="btn move"
-          @click.stop="$emit('sort', { direc: 'next', index })"
+          @click.stop="onClick('next')"
         />
       </div>
       <img :src="src">
     </div>
     <div
+      :class="{'hover': isShow}"
       class="caption"
       contenteditable="true"
     />
@@ -42,7 +47,7 @@
 <script setup lang="ts">
 import { mdiCloseCircleOutline, mdiArrowRightBoldCircleOutline, mdiArrowLeftBoldCircleOutline } from '@mdi/js'
 import TheIcon from '@/components/TheIcon'
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   src: string
   index: number
   total: number
@@ -51,9 +56,18 @@ withDefaults(defineProps<{
   index: 0,
   total: 1
 })
+const emit = defineEmits(['sort', 'remove'])
 const isShow = ref(false)
 const hover = (flg) => {
   isShow.value = flg
+}
+const onClick = (direc) => {
+  if (
+    (direc === 'next' && props.total - 1 !== props.index) ||
+    (direc === 'prev' && props.index !== 0)
+  ) {
+    emit('sort', { direc, index: props.index })
+  }
 }
 </script>
 
@@ -64,6 +78,10 @@ const hover = (flg) => {
 }
 .tools {
   position: absolute;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
   top: 50%;
   z-index: 2;
   margin-top: -20px;
@@ -84,9 +102,7 @@ const hover = (flg) => {
 .img {
   position: relative;
   img {
-    max-width: 100%;
-    max-height: 100%;
-    display: inline-block;
+    display: block;
     line-height: 0;
     margin: auto;
   }
@@ -107,6 +123,9 @@ const hover = (flg) => {
   }
 }
 .caption {
-  line-height: 1;
+
+  &.hover {
+    outline: -webkit-focus-ring-color auto 1px;
+  }
 }
 </style>

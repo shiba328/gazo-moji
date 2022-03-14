@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex items-center items-center text-btn"
+    class="helpbtn text-btn"
     @click="isHelp = !isHelp, isDialog = true"
   >
     <TheIcon
@@ -8,7 +8,7 @@
       size="20px"
       class="mr-1"
     />
-    <span>使い方</span>
+    <span class="no-sp">使い方</span>
   </div>
 </template>
 
@@ -20,3 +20,10 @@ import TheIcon from '@/components/TheIcon'
 const isHelp = useIsHelp()
 const isDialog = useIsDialog()
 </script>
+
+<style lang="scss" scoped>
+.helpbtn {
+  display: flex;
+  align-items: center;
+}
+</style>

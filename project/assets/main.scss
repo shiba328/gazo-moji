@@ -40,6 +40,9 @@ $sum: 11;
   } 
   .h#{$sum - $i} {
     font-size: 4px * $i;
+    @include mq-down() {
+      font-size: 2.5px * $i;
+    }
   }
 }
 
@@ -71,8 +74,21 @@ $properties: center, start, end, flex-start, flex-end, left, right, space-betwee
   }
 }
 
-html {
-  overflow-y: scroll;
+.no-sp {
+  @include mq-down() {
+    display: none !important;
+  }
+}
+.sp-only {
+  @include mq-up() {
+    display: none !important;
+  }
+}
+
+html, body, #__nuxt {
+  height: 100%;
+  padding: 0;
+  margin: 0;
 }
 body {
   font-family: "Helvetica Neue",
@@ -113,4 +129,9 @@ body {
   &:hover {
     text-decoration: underline;
   }
+}
+
+i {
+  font-style: normal;
+  display: inline-block;
 }

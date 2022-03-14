@@ -11,7 +11,6 @@ export function useClose () {
 export function useLoaded (): string {
   const downloadImg = useDownloadImg()
   const img = new Image()
-  img.onload = () => false
   img.src = downloadImg.value
   const w = img.naturalWidth
   const h = img.naturalHeight

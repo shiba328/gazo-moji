@@ -1,22 +1,31 @@
 <template>
-  <div class="droparea text-center flex column items-center">
-    <TheIcon
-      :path="mdiCameraPlus"
-      size="60px"
-    />
-    <div class="h3">
+  <div class="droparea">
+    <label for="select">
+      <TheIcon
+        :path="mdiCameraPlus"
+        size="60px"
+      />
+    </label>
+    <div class="h3 no-sp">
       ここに画像ファイルをドラッグ&amp;ドロップする
     </div>
-    <div class="hr" style="width: 100%">
+    <div class="hr no-sp">
       または
     </div>
-    <input type="file" multiple @change="$emit('onChange', $event)">
-    <div>
+    <input
+      id="select"
+      type="file"
+      multiple
+      accept="image/*"
+      @change="$emit('onChange', $event)"
+    >
+    <div class="no-sp">
       (Shiftキーを押しながらファイルを複数選択可能)
     </div>
     <ul class="text-left h6">
-      <li>画像ファイル(png/jpg/svg)以外は追加できません</li>
+      <li>画像ファイル(png/jpg/jpeg/gif)以外は追加できません</li>
       <li>このアプリは画僧ファイルはサーバー等にアップロードしません。</li>
+      <li>スマホでもPCでも利用できます。</li>
     </ul>
   </div>
 </template>
@@ -24,13 +33,16 @@
 <script setup lang="ts">
 import { mdiCameraPlus } from '@mdi/js'
 import TheIcon from '@/components/TheIcon'
-defineEmits(['onChange'])
 </script>
 
 <style lang="scss" scoped>
 @import "@/assets/main.scss";
 
 .droparea {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
   padding: 1em;
   color: $textColor;
   filter: drop-shadow(0 0 20px $shadowColor);
@@ -42,6 +54,7 @@ defineEmits(['onChange'])
   align-items: center;
   justify-content: center;
   font-size: 80%;
+  width: 100%;
 
   &:after,
   &::before {
