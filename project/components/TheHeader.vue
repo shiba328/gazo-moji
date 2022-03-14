@@ -2,7 +2,7 @@
   <div class="header">
     <div class="logo px-2">
       <div class="h5">
-        🏞️ 画像結合・文字入れ
+        🏞️ 画像結合・文字入れ加工
       </div>
     </div>
     <div class="menu px-2">
