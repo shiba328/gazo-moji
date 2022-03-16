@@ -8,46 +8,50 @@
   >
     <DropArea
       v-if="files.length === 0"
-      @onChange="change"
+      @onChange="onChange"
     />
     <CanvasArea
       v-if="files.length > 0"
       id="canvas"
     />
     <ToolBar
-      @upload="change"
+      @upload="onChange"
+      @preview="onTogglePreview"
+    />
+    <PreviewArea
+      v-if="isPreview"
+      @close="onTogglePreview"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import DropArea from '@/components/DropArea'
-import CanvasArea from '@/components/CanvasArea'
-import ToolBar from '@/components/ToolBar'
-import {
-  useCanvasCrop,
-  useCanvasSize
-} from '@/composables/state/Tool'
+import DropArea from '@/components/DropArea.vue'
+import CanvasArea from '@/components/CanvasArea.vue'
+import ToolBar from '@/components/ToolBar.vue'
+import PreviewArea from '@/components/PreviewArea.vue'
 
-import { useDrag, useUpload } from '@/composables/Main'
+import { useMain } from '@/composables/Main'
 import { useFiles } from '@/composables/state/Default'
 
-const dragover = ref(false)
-
-const onDrag = useDrag(dragover)
-const onDrop = useUpload()
-const change = (e: Event) => useUpload()(e)
 const files = useFiles()
 
-const canvasCrop = useCanvasCrop()
-const canvasSize = useCanvasSize()
-const canvasWidht = computed(() => canvasCrop.value ? canvasSize.value + 'px' : 'auto')
+const createMain = useMain()
+const onDrag = createMain.onDrag()
+const onDrop = createMain.onDrop()
+const onChange = (e: Event) => createMain.onChange(e)
+const onTogglePreview = () => createMain.onTogglePreview()
+const canvasWidht = computed(() => createMain.getCanvasWidth())
+const isPreview = createMain.isPreview
+const dragover = createMain.dragover
 </script>
+
 <style scoped>
 .main {
   width: v-bind(canvasWidht);
 }
 </style>
+
 <style lang="scss" scoped>
 @import "@/assets/main.scss";
 .main {

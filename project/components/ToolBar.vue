@@ -1,9 +1,7 @@
 <template>
   <div class="toolbar">
     <div class="update bar">
-      <label
-        class="cell btn text-center"
-      >
+      <label class="cell btn text-center">
         <TheIcon
           :path="mdiCameraPlus"
           size="24px"
@@ -36,7 +34,7 @@
     <div class="preview bar">
       <div
         class="cell btn text-center"
-        @click="preview"
+        @click="$emit('preview')"
       >
         <TheIcon
           :path="mdiDownload"
@@ -50,8 +48,6 @@
 
 <script setup lang="ts">
 import { mdiCameraPlus, mdiDownload } from '@mdi/js'
-import { getPreviewImg } from '@/composables/Main'
-import { useIsDialog } from '@/composables/state/Default'
 import { useTools } from '@/composables/Tool'
 
 import TheIcon from '@/components/TheIcon'
@@ -59,11 +55,6 @@ import ToolBarComp from '@/components/ToolBarComp'
 import TheDivider from '@/components/TheDivider'
 
 const tools = useTools()
-const isDialog = useIsDialog()
-const preview = async () => {
-  await getPreviewImg()
-  isDialog.value = true
-}
 </script>
 
 <style lang="scss" scoped>

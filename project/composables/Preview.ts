@@ -1,36 +1,79 @@
-import { useIsPreview, useIsDialog, useDownloadImg } from '@/composables/state/Default'
+import * as htmlToImage from 'html-to-image'
+import { useDownloadImg } from '@/composables/state/Default'
 
-export function useClose () {
-  const isPreview = useIsPreview()
-  const isDialog = useIsDialog()
-
-  isPreview.value = false
-  isDialog.value = false
-}
-
-export function useLoaded (): string {
+export const usePreview = () => {
+  const isSave = ref(false)
+  const isCopy = ref(false)
+  const isLoad = ref(false)
   const downloadImg = useDownloadImg()
-  const img = new Image()
-  img.src = downloadImg.value
-  const w = img.naturalWidth
-  const h = img.naturalHeight
+  const downloadImgData = ref('')
 
-  return `幅:${w}px 高さ:${h}px`
-}
+  const getImgBlob = async () => {
+    const node = document.getElementById('canvas')
 
-export function useDownload () {
-  const downloadImg = useDownloadImg()
-  const link = document.createElement('a')
-  link.download = `compile-image_${new Date().getTime()}.png`
-  link.href = downloadImg.value
-  link.click()
-  return true
-}
-
-export function useCopy (): boolean {
-  const url = 'https://shiba328.github.io/join-images/'
-  navigator.clipboard.writeText(url).then(() => {
-    return true
+    if (node) {
+      return await htmlToImage.toPng(node, { pixelRatio: 1 })
+        .then((dataUrl) => {
+          return {
+            code: '200',
+            data: dataUrl
+          }
+        })
+        .catch((error) => {
+          return {
+            code: '403',
+            data: error
+          }
+        })
+    } else {
+      return {
+        code: '404',
+        data: 'not find'
+      }
+    }
+  }
+  getImgBlob().then(({ code, data }) => {
+    if (code === '200') {
+      downloadImg.value = data
+      getImgDate(data)
+      isLoad.value = true
+    }
   })
-  return true
+
+  const getImgDate = (data) => {
+    const img = new Image()
+    img.onload = () => {
+      const w = img.naturalWidth
+      const h = img.naturalHeight
+      downloadImgData.value = `幅:${w}px 高さ:${h}px`
+    }
+    img.src = data
+  }
+
+  const onDownload = () => {
+    const downloadImg = useDownloadImg()
+    const link = document.createElement('a')
+    link.download = `compile-image_${new Date().getTime()}.png`
+    link.href = downloadImg.value
+    link.click()
+    isSave.value = true
+  }
+
+  const onCopy = () => {
+    const url = 'https://gazo-moji.netlify.app/'
+    navigator.clipboard.writeText(url).then(() => {
+      return true
+    })
+    isCopy.value = true
+  }
+
+  return {
+    onDownload,
+    onCopy,
+    downloadImg,
+    downloadImgData,
+    isSave,
+    isCopy,
+    isLoad
+  }
 }

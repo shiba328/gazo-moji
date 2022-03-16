@@ -1,9 +1,9 @@
 <template>
   <div
     class="imgitem"
-    @mouseenter.self="hover(true)"
-    @mouseleave.self="hover(false)"
-    @click="hover(!isShow)"
+    @mouseenter.self="onHover(true)"
+    @mouseleave.self="onHover(false)"
+    @click="onHover(!isShow)"
   >
     <div class="img">
       <div
@@ -47,6 +47,7 @@
 <script setup lang="ts">
 import { mdiCloseCircleOutline, mdiArrowRightBoldCircleOutline, mdiArrowLeftBoldCircleOutline } from '@mdi/js'
 import TheIcon from '@/components/TheIcon'
+
 const props = withDefaults(defineProps<{
   src: string
   index: number
@@ -57,18 +58,11 @@ const props = withDefaults(defineProps<{
   total: 1
 })
 const emit = defineEmits(['sort', 'remove'])
-const isShow = ref(false)
-const hover = (flg) => {
-  isShow.value = flg
-}
-const onClick = (direc) => {
-  if (
-    (direc === 'next' && props.total - 1 !== props.index) ||
-    (direc === 'prev' && props.index !== 0)
-  ) {
-    emit('sort', { direc, index: props.index })
-  }
-}
+
+const createItem = useItem({ props, emit })
+const isShow = createItem.isShow
+const onHover = (flg: boolean) => createItem.onHover(flg)
+const onClick = (direc: string) => createItem.onClick(direc)
 </script>
 
 <style lang="scss" scoped>

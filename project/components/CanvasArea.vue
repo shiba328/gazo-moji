@@ -6,48 +6,33 @@
       :src="file"
       :index="i"
       :total="files.length"
-      @sort="sort"
-      @remove="remove"
+      @sort="onSort"
+      @remove="onRemove"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { Ref } from 'vue'
-import ImgItem from '@/components/ImgItem'
-import {
-  useBgColor,
-  useBgTrans,
-  useCanvasCrop,
-  useCanvasSize,
-  useFontBold,
-  useFontColor,
-  useFontPos,
-  useFontSize,
-  useGridCount,
-  useGridGap,
-  useGridPos
-} from '@/composables/state/Tool'
+import { useCanvas } from '@/composables/Canvas'
 
-import { useFiles } from '@/composables/state/Default'
-import { useSort, useRemove } from '@/composables/Canvas'
-
-const files: Ref<string[]> = useFiles()
-const sort = ({ direc, index }) => { useSort({ files, direc, index }) }
-const remove = (index) => { useRemove({ files, index }) }
+const createCanvas = useCanvas()
+const files = createCanvas.files
+const onSort = ({ direc, index }) => createCanvas.useSort({ direc, index })
+const onRemove = (index: number) => createCanvas.useRemove(index)
 
 // CanvasStyle
-const bgColor = useBgColor()
-const bgTrans = useBgTrans()
-const canvasCrop = useCanvasCrop()
-const canvasSize = useCanvasSize()
-const fontBold = useFontBold()
-const fontColor = useFontColor()
-const fontPos = useFontPos()
-const fontSize = useFontSize()
-const gridCount = useGridCount()
-const gridGap = useGridGap()
-const gridPos = useGridPos()
+const canvasStyle = createCanvas.canvasStyle()
+const bgColor = canvasStyle.useBgColor()
+const bgTrans = canvasStyle.useBgTrans()
+const canvasCrop = canvasStyle.useCanvasCrop()
+const canvasSize = canvasStyle.useCanvasSize()
+const fontBold = canvasStyle.useFontBold()
+const fontColor = canvasStyle.useFontColor()
+const fontPos = canvasStyle.useFontPos()
+const fontSize = canvasStyle.useFontSize()
+const gridCount = canvasStyle.useGridCount()
+const gridGap = canvasStyle.useGridGap()
+const gridPos = canvasStyle.useGridPos()
 
 const backgGound = computed(() => bgTrans.value ? bgColor.value : 'transparent')
 const canvasWidth = computed(() => canvasCrop.value ? canvasSize.value + 'px' : 'auto')

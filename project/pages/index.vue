@@ -1,11 +1,7 @@
 <template>
-  <div
-    class="area"
-    :class="{'is-preview': isDialog}"
-  >
+  <div class="area">
     <TheHeader />
     <MainArea />
-    <PreviewArea v-if="isPreview" />
     <HelpArea />
   </div>
 </template>
@@ -13,12 +9,7 @@
 <script setup lang="ts">
 import TheHeader from '@/components/TheHeader.vue'
 import MainArea from '@/components/MainArea.vue'
-import PreviewArea from '@/components/PreviewArea.vue'
 import HelpArea from '@/components/HelpArea.vue'
-import { useIsPreview, useIsDialog } from '@/composables/state/Default'
-
-const isPreview = useIsPreview()
-const isDialog = useIsDialog()
 
 useMeta({
   title: '画像結合・文字入れ加工 | 資料作りに便利なオンラインツール',

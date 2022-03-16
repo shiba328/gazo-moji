@@ -13,8 +13,8 @@
 </template>
 
 <script setup lang="ts">
-import HelpBtn from '@/components/HelpBtn'
-import VersionDate from '@/components/VersionDate'
+import HelpBtn from '@/components/HelpBtn.vue'
+import VersionDate from '@/components/VersionDate.vue'
 </script>
 
 <style lang="scss" scoped>
