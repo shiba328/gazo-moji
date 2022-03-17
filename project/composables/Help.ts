@@ -1,23 +1,24 @@
-import { useIsDialog } from '@/composables/state/Default'
-
 export const useHelp = () => {
   //
-  const isDialog = useIsDialog()
+  const getPost = ref<string>('')
+  const isHelp = ref(false)
   //
-  const getPost = ref<string>('');
-  //
-  (async () => {
+  ;(async () => {
     const nuxtApp = useNuxtApp()
     const { data } = await useAsyncData('doc', () => $fetch('/api/doc'))
     getPost.value = nuxtApp.$mdit.render(data.value)
   })()
 
-  const onClose = () => {
-    isDialog.value = false
+  const onToggleHelp = () => {
+    isHelp.value = !isHelp.value
+    useMeta({
+      bodyAttrs: { class: isHelp.value ? 'isDialog' : '' }
+    })
   }
 
   return {
     getPost,
-    onClose
+    onToggleHelp,
+    isHelp
   }
 }

@@ -20,7 +20,7 @@ import VersionDate from '@/components/VersionDate.vue'
 <style lang="scss" scoped>
 .header {
   width: 100%;
-  z-index: 1;
+  z-index: 2;
   background: #fff;
   display: flex;
   align-items: center;

@@ -1,11 +1,10 @@
 import * as htmlToImage from 'html-to-image'
-import { useDownloadImg } from '@/composables/state/Default'
 
 export const usePreview = () => {
   const isSave = ref(false)
   const isCopy = ref(false)
   const isLoad = ref(false)
-  const downloadImg = useDownloadImg()
+  const downloadImg = ref('')
   const downloadImgData = ref('')
 
   const getImgBlob = async () => {
@@ -51,9 +50,8 @@ export const usePreview = () => {
   }
 
   const onDownload = () => {
-    const downloadImg = useDownloadImg()
     const link = document.createElement('a')
-    link.download = `compile-image_${new Date().getTime()}.png`
+    link.download = `${new Date().getTime()}.png`
     link.href = downloadImg.value
     link.click()
     isSave.value = true

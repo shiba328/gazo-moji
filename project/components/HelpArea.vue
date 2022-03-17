@@ -1,8 +1,7 @@
 <template>
   <div
-    v-if="isDialog"
     class="help dialog"
-    @click.self="close()"
+    @click.self="$emit('close')"
   >
     <div class="card">
       <div
@@ -14,13 +13,8 @@
 </template>
 
 <script setup lang="ts">
-import { useIsDialog } from '@/composables/state/Default'
-
 const createHelp = useHelp()
-const isDialog = useIsDialog()
-
 const post = computed(() => createHelp.getPost.value)
-const close = () => createHelp.onClose()
 </script>
 
 <style lang="scss" scoped>

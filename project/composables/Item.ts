@@ -1,11 +1,13 @@
+export type DIRECS = 'next' | 'prev'
+
 export const useItem = ({ props, emit }) => {
   const isShow = ref(false)
 
-  const onHover = (flg) => {
+  const onHover = (flg: boolean) => {
     isShow.value = flg
   }
 
-  const onClick = (direc) => {
+  const onClick = (direc: DIRECS) => {
     if (
       (direc === 'next' && props.total - 1 !== props.index) ||
       (direc === 'prev' && props.index !== 0)

@@ -2,14 +2,12 @@
   <div class="area">
     <TheHeader />
     <MainArea />
-    <HelpArea />
   </div>
 </template>
 
 <script setup lang="ts">
 import TheHeader from '@/components/TheHeader.vue'
 import MainArea from '@/components/MainArea.vue'
-import HelpArea from '@/components/HelpArea.vue'
 
 useMeta({
   title: '画像結合・文字入れ加工 | 資料作りに便利なオンラインツール',

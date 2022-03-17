@@ -47,6 +47,7 @@
 <script setup lang="ts">
 import { mdiCloseCircleOutline, mdiArrowRightBoldCircleOutline, mdiArrowLeftBoldCircleOutline } from '@mdi/js'
 import TheIcon from '@/components/TheIcon'
+import { DIRECS } from '@/composables/Item'
 
 const props = withDefaults(defineProps<{
   src: string
@@ -62,7 +63,7 @@ const emit = defineEmits(['sort', 'remove'])
 const createItem = useItem({ props, emit })
 const isShow = createItem.isShow
 const onHover = (flg: boolean) => createItem.onHover(flg)
-const onClick = (direc: string) => createItem.onClick(direc)
+const onClick = (direc: DIRECS) => createItem.onClick(direc)
 </script>
 
 <style lang="scss" scoped>
