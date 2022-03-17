@@ -70,15 +70,9 @@ const dragover = createMain.dragover
   background-size: 20px 20px;
   background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
 }
-.dragover .bg::before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgb(33 150 248 / 30%);
+.dragover  {
+  background-image: linear-gradient(45deg, rgb(33 150 248 / 30%) 25%, transparent 25%), linear-gradient(-45deg,rgb(33 150 248 / 30%) 25%, transparent 25%), linear-gradient(45deg, transparent 75%,rgb(33 150 248 / 30%) 75%), linear-gradient(-45deg, transparent 75%,rgb(33 150 248 / 30%) 75%);
+  background-color: rgb(33 150 248 / 30%);
 }
 #canvas {
   position: relative;
