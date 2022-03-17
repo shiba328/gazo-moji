@@ -1,51 +1,56 @@
-import * as htmlToImage from 'html-to-image'
-import { useFiles, useIsPreview, useDownloadImg } from '@/composables/state/Default'
 
-export function useDrag (dragover) {
-  return (flg: boolean) => {
-    dragover.value = flg
+import { useFiles } from '@/composables/state/Default'
+import {
+  useCanvasCrop,
+  useCanvasSize
+} from '@/composables/state/Tool'
+
+export const useMain = () => {
+  //
+  const dragover = ref(false)
+  const isPreview = ref(false)
+  //
+  const onDrag = () => useDrag(dragover)
+  const onDrop = () => useUpload()
+  const onChange = (e: Event) => useUpload()(e)
+  const onTogglePreview = () => {
+    isPreview.value = !isPreview.value
+    useMeta({
+      bodyAttrs: { class: isPreview.value ? 'isDialog' : '' }
+    })
   }
-}
 
-export function useUpload () {
-  const files = useFiles()
-  return (e) => {
-    const tmpfiles = e.dataTransfer ? e.dataTransfer.files : e.target.files
-    const res: File[] = Array.from(tmpfiles).filter((v:File) => v.type.match(/image/)) as File[]
-    files.value.push(...getFiles(res))
-  }
-}
+  const canvasCrop = useCanvasCrop()
+  const canvasSize = useCanvasSize()
 
-export function getFiles (files:File[]): string[] {
-  return files.map(file => URL.createObjectURL(file))
-}
+  const getCanvasWidth = () => canvasCrop.value ? canvasSize.value + 'px' : 'auto'
 
-export async function getPreviewImg () {
-  console.log('getPreviewImg')
-  const downloadImg = useDownloadImg()
-  const isPreview = useIsPreview()
-  isPreview.value = !isPreview.value
-  const node = document.getElementById('canvas')
-
-  if (node) {
-    return await htmlToImage.toPng(node, { pixelRatio: 1 })
-      .then((dataUrl) => {
-        downloadImg.value = dataUrl
-        return {
-          code: '200',
-          data: 'success'
-        }
-      })
-      .catch((error) => {
-        return {
-          code: '403',
-          data: error
-        }
-      })
-  } else {
-    return {
-      code: '404',
-      data: 'not find'
+  const useUpload = () => {
+    const files = useFiles()
+    return (e) => {
+      const tmpfiles = e.dataTransfer ? e.dataTransfer.files : e.target.files
+      const res: File[] = Array.from(tmpfiles).filter((v:File) => v.type.match(/image/)) as File[]
+      files.value.push(...getFiles(res))
     }
+  }
+
+  const useDrag = (dragover) => {
+    return (flg: boolean) => {
+      dragover.value = flg
+    }
+  }
+
+  const getFiles = (files:File[]): string[] => {
+    return files.map(file => URL.createObjectURL(file))
+  }
+
+  return {
+    onDrag,
+    onDrop,
+    onChange,
+    onTogglePreview,
+    dragover,
+    isPreview,
+    getCanvasWidth
   }
 }

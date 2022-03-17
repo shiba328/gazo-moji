@@ -1,32 +1,20 @@
 <template>
   <div
-    v-if="isHelp"
     class="help dialog"
-    @click.self="close()"
+    @click.self="$emit('close')"
   >
     <div class="card">
       <div
         class="card-text"
-        v-html="md"
+        v-html="post"
       />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useIsHelp, useIsDialog } from '@/composables/state/Default'
-
-const { data } = await useAsyncData('doc', () => $fetch('/api/doc'))
-const nuxtApp = useNuxtApp()
-const md = nuxtApp.$mdit.render(data.value)
-
-const isHelp = useIsHelp()
-const isDialog = useIsDialog()
-
-const close = () => {
-  isHelp.value = false
-  isDialog.value = false
-}
+const createHelp = useHelp()
+const post = computed(() => createHelp.getPost.value)
 </script>
 
 <style lang="scss" scoped>

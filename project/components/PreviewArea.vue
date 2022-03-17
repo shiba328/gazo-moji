@@ -1,26 +1,29 @@
 <template>
   <div
     class="preview dialog"
-    @click.self="close()"
+    @click.self="$emit('close')"
   >
-    <div class="card flex column justify-center">
+    <div
+      v-if="isLoad"
+      class="card flex column justify-center"
+    >
       <div class="card-header flex justify-end">
         <TheIcon
           :path="mdiCloseCircleOutline"
           size="40px"
           color="#fff"
-          @click.stop="close()"
+          @click.stop="$emit('close')"
         />
       </div>
       <div class="card-text pa-3 text-center">
-        <img id="img" :src="downloadImg" @load="loaded">
+        <img id="img" :src="downloadImg">
       </div>
       <div class="card-action flex">
         <div class="bg flex items-center px-2">
-          サイズ: {{ imgDom }}
+          サイズ: {{ downloadImgData }}
         </div>
         <div class="bg ml-auto pa-1">
-          <TheButton class="btn" @click.stop="download">
+          <TheButton class="btn" @click.stop="onDownload">
             <TheIcon :path="mdiDownload" />
             <span>保存</span>
           </TheButton>
@@ -39,13 +42,13 @@
             <span>ぜひシェアお願いします。</span>
           </p>
           <div class="flex justify-center items-center">
-            <TheButton class="button btn mr-2" @click.stop="copy">
+            <TheButton class="button btn mr-2" @click.stop="onCopy">
               <a class="flex link items-center" href="https://twitter.com/intent/tweet?text=&amp;hashtags=画像くっつけたー&amp;url=https://shiba328.github.io/join-images/&amp;screen_name=pictcolla" target="_blank">
                 <TheIcon :path="mdiTwitter" class="mr-1" />
                 <span>シェア</span>
               </a>
             </TheButton>
-            <TheButton class="btn" @click.stop="copy">
+            <TheButton class="btn" @click.stop="onCopy">
               <span>URLコピー</span>
             </TheButton>
           </div>
@@ -58,6 +61,14 @@
         </div>
       </div>
     </div>
+    <div
+      v-if="!isLoad"
+      class="card flex column justify-center"
+    >
+      <div class="bg card-text pa-3 text-center">
+        Loading...
+      </div>
+    </div>
   </div>
 </template>
 
@@ -65,19 +76,16 @@
 import { mdiCloseCircleOutline, mdiDownload, mdiTwitter } from '@mdi/js'
 import TheButton from './TheButton.vue'
 import TheIcon from '@/components/TheIcon'
-import { useDownloadImg } from '@/composables/state/Default'
 
-import { useClose, useLoaded, useCopy } from '@/composables/Preview'
+const createPreview = usePreview()
 
-const downloadImg = useDownloadImg()
-const imgDom = ref('')
-const isSave = ref(false)
-const isCopy = ref(false)
-
-const close = () => useClose()
-const loaded = () => { imgDom.value = useLoaded() }
-const download = () => { isSave.value = useDownload() }
-const copy = () => { isCopy.value = useCopy() }
+const downloadImg = createPreview.downloadImg
+const downloadImgData = computed(() => createPreview.downloadImgData.value)
+const isLoad = computed(() => createPreview.isLoad.value)
+const isSave = createPreview.isSave
+const isCopy = createPreview.isCopy
+const onDownload = () => createPreview.onDownload()
+const onCopy = () => createPreview.onCopy()
 </script>
 
 <style lang="scss" scoped>

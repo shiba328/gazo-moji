@@ -13,14 +13,14 @@
 </template>
 
 <script setup lang="ts">
-import HelpBtn from '@/components/HelpBtn'
-import VersionDate from '@/components/VersionDate'
+import HelpBtn from '@/components/HelpBtn.vue'
+import VersionDate from '@/components/VersionDate.vue'
 </script>
 
 <style lang="scss" scoped>
 .header {
   width: 100%;
-  z-index: 1;
+  z-index: 2;
   background: #fff;
   display: flex;
   align-items: center;
