@@ -31,7 +31,6 @@ import CanvasArea from '@/components/CanvasArea.vue'
 import ToolBar from '@/components/ToolBar.vue'
 import PreviewArea from '@/components/PreviewArea.vue'
 
-import { useMain } from '@/composables/Main'
 import { useFiles } from '@/composables/state/Default'
 
 const files = useFiles()

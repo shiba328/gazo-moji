@@ -13,8 +13,6 @@
 </template>
 
 <script setup lang="ts">
-import { useCanvas } from '@/composables/Canvas'
-
 const createCanvas = useCanvas()
 const files = createCanvas.files
 const onSort = ({ direc, index }) => createCanvas.useSort({ direc, index })

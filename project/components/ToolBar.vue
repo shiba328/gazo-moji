@@ -48,7 +48,6 @@
 
 <script setup lang="ts">
 import { mdiCameraPlus, mdiDownload } from '@mdi/js'
-import { useTools } from '@/composables/Tool'
 
 import TheIcon from '@/components/TheIcon'
 import ToolBarComp from '@/components/ToolBarComp'
